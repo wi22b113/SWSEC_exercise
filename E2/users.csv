@@ -1,0 +1,9 @@
+id,svnr,salery,hobbies,license,lastname,password,username,firstname,protected
+1,1454071295,500,App Developemnt,W-75GGF2,Apple,applepie,alice,Alice,0
+2,1503090487,700,E-Mails schreiben,NK-AD232,Borderlands,cheesecake,bob,Bob,0
+3,1548271190,1300,Phishing,W-482343,Evil,*2F7DF9930EE602DC84F4597F8C646603CE90BEE8,eve,Eve,1
+4,1682030415,5000,Reisen,W-128304,Feuerstein,$securePass42,fred,Fred,0
+5,1458251294,8000,Lesen,P-Gov 1,Government,*6B41DEA510CC3DE99DAFE736C156761A35A0459E,grace,Grace,1
+6,1682030415,12000,Enigma,H-eidi1,Heidelbeer,crypt0gr@phics,heidel,Harald,0
+7,1682030415,40000,Justice,W-Multi1,Judge,*1837841058DAC859705CFDB96B1660196F9B8ADE (ostern),judy,Judy,1
+
