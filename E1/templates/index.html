@@ -1,45 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Password Generator Demo</title>
-    <script>
-      function validateForm() {
-        const numberOfPasswords = document.getElementById('number_of_passwords').value;
-
-        // Client-side check: ensure the user can't pick more than 10
-        if (parseInt(numberOfPasswords, 10) > 10) {
-          alert("You cannot generate more than 10 passwords at once!");
-          return false; // prevent form submission
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
         }
-        return true; // allow submission
-      }
-    </script>
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 1rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 1rem 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            margin-top: 1rem;
+            color: red;
+            display: none;
+        }
+        .results {
+            margin-top: 1rem;
+            text-align: left;
+            padding: 1rem;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Password Generator (Client-Side Limit Demo)</h1>
-    <form action="/generate" method="POST" onsubmit="return validateForm();">
-        <label for="number_of_passwords">Number of Passwords (max 10):</label>
-        <input type="number" id="number_of_passwords" name="number_of_passwords" value="1" min="1" max="10" required>
-        <br><br>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <p>Enter the number of passwords you want to generate (max: 10) and the length of each password (4-32):</p>
+        <form id="passwordForm">
+            <input type="number" id="passwordCount" name="passwordCount" min="1" max="10" required placeholder="Number of passwords">
+            <input type="number" id="passwordLength" name="passwordLength" min="4" max="32" required placeholder="Length of each password">
+            <button type="button" onclick="generatePasswords()">Generate Passwords</button>
+        </form>
+        <div class="alert" id="alert"></div>
+        <div class="results" id="results"></div>
+    </div>
 
-        <label for="password_length">Length of Each Password:</label>
-        <input type="number" id="password_length" name="password_length" value="8" min="1" max="50" required>
-        <br><br>
+    <script>
+        function validatePasswordLimit() {
+            const passwordCount = document.getElementById('passwordCount').value;
+            const passwordLength = document.getElementById('passwordLength').value;
+            const alertBox = document.getElementById('alert');
 
-        <button type="submit">Generate</button>
-    </form>
+            if (parseInt(passwordCount) > 10 || parseInt(passwordLength) < 4 || parseInt(passwordLength) > 32) {
+                alertBox.style.display = 'block';
+                alertBox.innerHTML = "Invalid input. Please ensure password count is <= 10 and length is between 4 and 32.";
+                return false;
+            }
+            alertBox.style.display = 'none';
+            return true;
+        }
 
-    <hr>
-    <h2>Generated Passwords:</h2>
-    <ul>
-      {% if passwords %}
-        {% for pwd in passwords %}
-          <li>{{ pwd }}</li>
-        {% endfor %}
-      {% else %}
-        <li>No passwords generated yet.</li>
-      {% endif %}
-    </ul>
+        async function generatePasswords() {
+            if (!validatePasswordLimit()) return;
+
+            const passwordCount = document.getElementById('passwordCount').value;
+            const passwordLength = document.getElementById('passwordLength').value;
+            const resultsDiv = document.getElementById('results');
+
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `passwordCount=${passwordCount}&passwordLength=${passwordLength}`,
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = '<h3>Generated Passwords:</h3><ul>' +
+                    data.map(password => `<li>${password}</li>`).join('') + '</ul>';
+            } else {
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+            }
+        }
+    </script>
 </body>
 </html>
